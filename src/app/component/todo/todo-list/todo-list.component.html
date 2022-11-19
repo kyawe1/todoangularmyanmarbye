@@ -1,0 +1,6 @@
+<div class="p-2 m-2 border-1 rounded border">
+    <div class="d-flex justify-content-between">
+        <div>{{todo.task}}</div>
+        <button class="btn btn-danger" (click)="deleteTodo.emit(todo.id)">Delete</button>
+    </div>
+</div>

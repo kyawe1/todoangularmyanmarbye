@@ -1,0 +1,9 @@
+<div mat-dialog-container>
+    <div mat-dialog-content>
+        <input type="text" [(ngModel)]="data.task"/>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="data.task">Save</button>
+    </div>
+</div>
