@@ -1,6 +1,6 @@
 <div class="">
     <app-loading [loading]="loading"></app-loading>
-    <div class="h1">
+    <div class="h1 mb-3 py-2 border-bottom-1 border-bottom">
         Todo Application
     </div>
     <div class="w-50 d-block mx-auto">
@@ -15,6 +15,5 @@
             <button class="btn btn-primary mx-2" (click)="opendialog()">Create</button>
         </div>
         <app-todo-list *ngFor="let i of todo | async" [todo]="i" (deleteTodo)="deleteTodo($event)"></app-todo-list>
-        
     </div>
 </div>

@@ -51,9 +51,11 @@ export class TodoComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.createTodo(result);
-      this.showMessage=true;
+      if(result){
+        console.log(result);
+        this.createTodo(result);
+        this.showMessage=true;
+      }
     });
   }
   createTodo(task: string): void {
