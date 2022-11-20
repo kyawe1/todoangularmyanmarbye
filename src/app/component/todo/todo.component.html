@@ -5,7 +5,7 @@
     </div>
     <div class="w-50 d-block mx-auto">
         <div *ngIf="showMessage===true">
-            <div [ngClass]="{'OK' :'alert alert-success','NG':'alert alert-danger'}[message.status] "
+            <div [ngClass]="{'OK' :'alert alert-success','NG':'alert alert-danger','ER':'alert alert-danger'}[message.status] "
                 *ngIf="message$ |async as message" class="display-none">
                 {{message.message}}
             </div>
