@@ -14,25 +14,26 @@ import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
   providers: [TodoService]
 })
 export class TodoComponent implements OnInit {
-  public todo!: Observable<Todo[]>;
+  public todo$!: Observable<Datawarper<Todo[]>>;
   public message$!: Observable<messageWarper>;
   public showMessage: boolean = false;
   public dialogRef: MatDialogRef<TodoDialogComponent> | null = null;
   public loading:boolean=true;
+  public pageNumber:number=1;
   constructor(private service: TodoService, public dialog: MatDialog) {
     this.getTodoesFromApi();
   }
   ngOnInit(): void {
 
   }
-  getTodoesFromApi(): void {
-    this.todo = this.service.getTodos().pipe(
+  getTodoesFromApi(page_number:number=1): void {
+    this.todo$ = this.service.getTodos(page_number).pipe(
       map((data) => {
         this.loading=false;
-        return data.data;
+        return data;
       })
     );
-    console.log(this.todo);
+    this.pageNumber=page_number;
   }
   deleteTodo(id: number): void {
     this.message$ = this.service.deleteTodos(id).pipe(

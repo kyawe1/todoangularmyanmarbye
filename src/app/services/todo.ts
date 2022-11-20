@@ -11,8 +11,8 @@ export class TodoService {
     constructor(client:HttpClient){
         this.client=client;
     }
-    getTodos():Observable<Datawarper<Todo[]>>{
-        return this.client.get<Datawarper<Todo[]>>("https://localhost:7275/todo");
+    getTodos(page_number:number):Observable<Datawarper<Todo[]>>{
+        return this.client.get<Datawarper<Todo[]>>("https://localhost:7275/todo?page="+page_number);
     }
     deleteTodos(i :number):Observable<messageWarper>{
         console.log("https://localhost:7275/todo/"+i)

@@ -14,6 +14,12 @@
             <input type="text" class="form-control" placeholder="type something" />
             <button class="btn btn-primary mx-2" (click)="opendialog()">Create</button>
         </div>
-        <app-todo-list *ngFor="let i of todo | async" [todo]="i" (deleteTodo)="deleteTodo($event)"></app-todo-list>
+        <div *ngIf="todo$ | async as todo">
+            <app-todo-list *ngFor="let i of todo.data" [todo]="i" (deleteTodo)="deleteTodo($event)"></app-todo-list>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" *ngFor="let item of [].constructor(todo.total_pages); let i = index" (click)="getTodoesFromApi(i+1)">{{i+1}}</button>
+            </div>
+        </div>
+
     </div>
 </div>
