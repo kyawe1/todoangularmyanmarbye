@@ -1,19 +1,20 @@
 <div class="">
+    <app-loading [loading]="loading"></app-loading>
     <div class="h1">
         Todo Application
     </div>
     <div class="w-50 d-block mx-auto">
-        <div>
-            <button class="btn btn-primary" (click)="opendialog()">Create</button>
+        <div *ngIf="showMessage===true">
+            <div [ngClass]="{'OK' :'alert alert-success','NG':'alert alert-danger'}[message.status] "
+                *ngIf="message$ |async as message" class="display-none">
+                {{message.message}}
+            </div>
         </div>
-        
-        <div class="alert alert-success" *ngIf="showMessage===true">
-            {{successMessage | async}}
+        <div class="d-flex">
+            <input type="text" class="form-control" placeholder="type something" />
+            <button class="btn btn-primary mx-2" (click)="opendialog()">Create</button>
         </div>
-        <!-- <div [ngClass]="{'OK' :'alert alert-success','NG':'alert alert-danger'}[message.status]" class="display-none">
-            {{message.message}}
-        </div> -->
-        <input type="text" class="form-control" placeholder="type something" />
         <app-todo-list *ngFor="let i of todo | async" [todo]="i" (deleteTodo)="deleteTodo($event)"></app-todo-list>
+        
     </div>
 </div>

@@ -15,10 +15,10 @@ import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
 })
 export class TodoComponent implements OnInit {
   public todo!: Observable<Todo[]>;
-  public successMessage!: Observable<string|null>;
-  public message!: messageWarper;
+  public message$!: Observable<messageWarper>;
   public showMessage: boolean = false;
   public dialogRef: MatDialogRef<TodoDialogComponent> | null = null;
+  public loading:boolean=true;
   constructor(private service: TodoService, public dialog: MatDialog) {
     this.getTodoesFromApi();
   }
@@ -28,16 +28,18 @@ export class TodoComponent implements OnInit {
   getTodoesFromApi(): void {
     this.todo = this.service.getTodos().pipe(
       map((data) => {
+        this.loading=false;
         return data.data;
       })
     );
     console.log(this.todo);
   }
   deleteTodo(id: number): void {
-    this.successMessage = this.service.deleteTodos(id).pipe(
+    this.message$ = this.service.deleteTodos(id).pipe(
       map((data) => {
         this.getTodoesFromApi();
-        return data.message;
+        this.showMessage = true;
+        return data;
       })
     )
     this.showMessage = true;
@@ -50,13 +52,18 @@ export class TodoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.service.saveTodo(result).subscribe((data) => {
-        this.message=data;
-        this.showMessage=true;
-        this.getTodoesFromApi();
-      }
-      );
+      this.createTodo(result);
+      this.showMessage=true;
     });
+  }
+  createTodo(task: string): void {
+    this.message$ = this.service.saveTodo(task).pipe(
+      map((data) => {
+        this.getTodoesFromApi();
+        this.showMessage = true;
+        return data;
+      })
+    )
   }
   onclose() {
     console.log("closed");
