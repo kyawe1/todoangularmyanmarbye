@@ -1,0 +1,15 @@
+<div class="d-flex container mx-auto">
+    <form [formGroup]="user" (ngSubmit)="onSubmit()">
+        <div class="mb-1">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="email" />
+        </div>
+        <div>
+            <label class="form-label">Password</label>
+            <input class="form-control" type="password" formControlName="password" />
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary w-100" />
+        </div>
+    </form>
+</div>

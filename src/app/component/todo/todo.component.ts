@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map } from 'rxjs';
 import { Datawarper } from 'src/app/interfaces/datawarper';
@@ -11,7 +11,8 @@ import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css'],
-  providers: [TodoService]
+  providers: [TodoService],
+  changeDetection:ChangeDetectionStrategy.Default
 })
 export class TodoComponent implements OnInit {
   public todo$!: Observable<Datawarper<Todo[]>>;
